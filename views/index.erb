@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    </head>
+    <body>
+        <h1>
+            <a href="/">Is this IP in this CIDR?</a>
+            <a href="https://github.com/kyanny/is-this-ip-in-this-cidr"><img src="https://img.shields.io/badge/GitHub-repository-black"></a>
+        </h1>
+
+        <form>
+            IP <input type="text" name="ip" value="<%= ip %>">
+            CIDR <input type="text" name="cidr" value="<%= cidr %>">
+            <input type="submit">
+        </form>
+
+        <div>
+        <% unless error.nil? %>
+            <p><%= h error.inspect %></p>
+        <% end %>
+
+        <% unless result.nil? %>
+            <% if result == true %>
+                <p>✅ <%= ip %> is in <%= cidr %>.</p>
+            <% else %>
+                <p>❌ <%= ip %> is not in <%= cidr %>.</p>
+            <% end %>
+        <% end %>
+        </div>
+    </body>
+
+</html>
