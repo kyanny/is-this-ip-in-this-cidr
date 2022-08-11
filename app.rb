@@ -6,6 +6,14 @@ helpers do
     def h(text)
       Rack::Utils.escape_html(text)
     end
+
+    def message(ip, cidr, result)
+        if result
+            "✅ #{ip} is in #{cidr}."
+        else
+            "❌ #{ip} is not in #{cidr}."
+        end
+    end
 end
 
 get '/' do
@@ -20,11 +28,12 @@ get '/' do
     format = params['format'] || 'html'
     case format
     when 'html'
-        erb :index, locals: { ip: ip, cidr: cidr, result: result, error: error }
+        message = message(ip, cidr, result)
+        erb :index, locals: { ip: ip, cidr: cidr, message: message, error: error }
     when 'json'
         json result
     when /te?xt/
         content_type 'text/plain'
-        result ? "✅ #{ip} is in #{cidr}." : "❌ #{ip} is not in #{cidr}."
+        message(ip, cidr, result)
     end
 end

@@ -18,18 +18,13 @@
             <a href="/?ip=<%= ip %>&cidr=<%= cidr %>&format=txt">TXT</a>
         </form>
 
-
         <div>
         <% unless error.nil? %>
             <p><%= h error.inspect %></p>
         <% end %>
 
-        <% unless result.nil? %>
-            <% if result == true %>
-                <p>✅ <%= ip %> is in <%= cidr %>.</p>
-            <% else %>
-                <p>❌ <%= ip %> is not in <%= cidr %>.</p>
-            <% end %>
+        <% unless message.nil? %>
+            <p><%= message %></p>
         <% end %>
         </div>
     </body>
