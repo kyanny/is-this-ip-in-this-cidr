@@ -1,4 +1,5 @@
 require 'sinatra'
+require 'sinatra/json'
 require 'ipaddr'
 
 helpers do
@@ -15,5 +16,15 @@ get '/' do
     rescue IPAddr::InvalidAddressError => error
         p error.inspect
     end
-    erb :index, locals: { ip: ip, cidr: cidr, result: result, error: error }
+
+    format = params['format'] || 'html'
+    case format
+    when 'html'
+        erb :index, locals: { ip: ip, cidr: cidr, result: result, error: error }
+    when 'json'
+        json result
+    when /te?xt/
+        content_type 'text/plain'
+        result ? "✅ #{ip} is in #{cidr}." : "❌ #{ip} is not in #{cidr}."
+    end
 end

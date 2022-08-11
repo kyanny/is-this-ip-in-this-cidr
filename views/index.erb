@@ -14,7 +14,10 @@
             IP <input type="text" name="ip" value="<%= ip %>">
             CIDR <input type="text" name="cidr" value="<%= cidr %>">
             <input type="submit">
+            <a href="/?ip=<%= ip %>&cidr=<%= cidr %>&format=json">JSON</a>
+            <a href="/?ip=<%= ip %>&cidr=<%= cidr %>&format=txt">TXT</a>
         </form>
+
 
         <div>
         <% unless error.nil? %>
